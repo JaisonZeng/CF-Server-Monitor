@@ -3,13 +3,13 @@
     <div class="modal-dialog">
       <div class="modal-header">
         <div class="modal-title">{{ currentServerName }}</div>
-        <button class="modal-close" @click="$emit('close')">✕</button>
+        <button class="modal-close" @click="$emit('close')"><AppIcon name="x" /></button>
       </div>
       <input type="hidden" :value="deleteServerId">
 
       <div class="mb-4">
         <div class="flex-center-gap-sm mb-3">
-          <span class="danger-icon text-xl">⚠️</span>
+          <span class="danger-icon text-xl"><AppIcon name="alert-triangle" /></span>
           <span class="danger-label">{{ trans.dangerWarning }}</span>
         </div>
         <p class="text-secondary text-sm line-height-1-6">
@@ -80,7 +80,7 @@
           rows="8"
         />
         <input v-else type="text" readonly :value="uninstallCommand" class="cmd-input flex-1">
-        <button @click="$emit('copy-uninstall')" class="btn btn-icon btn-green ml-2" :aria-label="trans.copy">{{ uninstallCopied ? '✅' : '📋' }}</button>
+        <button @click="$emit('copy-uninstall')" class="btn btn-icon btn-green ml-2" :aria-label="trans.copy"><AppIcon :name="uninstallCopied ? 'circle-check' : 'clipboard'" /></button>
       </div>
 
       <div class="modal-footer flex-justify-between">
@@ -94,6 +94,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import HelpTooltip from '../../../components/HelpTooltip.vue'
+import AppIcon from '../../../components/AppIcon.vue'
 
 const props = defineProps({
   trans: { type: Object, required: true },

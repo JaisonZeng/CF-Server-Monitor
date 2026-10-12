@@ -36,7 +36,7 @@
             <OsIcon :os="server.os" />
           </span>
           <span v-else class="country-os-icons">
-            <span class="flag-fallback">🏳️</span>
+            <span class="flag-fallback"><AppIcon name="flag" /></span>
             <OsIcon :os="server.os" />
           </span>
           <span>{{ server.name || 'Loading...' }}</span>
@@ -49,51 +49,51 @@
       </div>
       <div class="sysinfo-grid" id="info-panel">
         <div class="sysinfo-item">
-          <span class="sysinfo-label">⏱ {{ trans.uptime }}</span>
+          <span class="sysinfo-label"><AppIcon name="timer" /> {{ trans.uptime }}</span>
           <span class="sysinfo-value">{{ formatUptime(server.boot_time) }}</span>
         </div>
         <div class="sysinfo-item" v-if="server.expire_date">
-          <span class="sysinfo-label">📅 {{ trans.expire }}</span>
+          <span class="sysinfo-label"><AppIcon name="calendar" /> {{ trans.expire }}</span>
           <span class="sysinfo-value" :class="{ 'expired': isExpired }">{{ expireDaysText }}</span>
         </div>
         <div class="sysinfo-item">
-          <span class="sysinfo-label">💻 {{ trans.os }} / {{ trans.architecture }}</span>
+          <span class="sysinfo-label"><AppIcon name="laptop" /> {{ trans.os }} / {{ trans.architecture }}</span>
           <span class="sysinfo-value sysinfo-small">{{ server.os || 'N/A' }} / {{ server.arch || 'N/A' }}</span>
         </div>
         <div class="sysinfo-item" v-if="server.kernel_version">
-          <span class="sysinfo-label">🧩 {{ trans.kernelVersion || 'Kernel' }}</span>
+          <span class="sysinfo-label"><AppIcon name="puzzle" /> {{ trans.kernelVersion || 'Kernel' }}</span>
           <span class="sysinfo-value sysinfo-small">{{ server.kernel_version }}</span>
         </div>
         <div class="sysinfo-item">
-          <span class="sysinfo-label">🔧 {{ trans.cpuInfo }}</span>
+          <span class="sysinfo-label"><AppIcon name="cpu" /> {{ trans.cpuInfo }}</span>
           <span class="sysinfo-value sysinfo-small">{{ server.cpu_info || 'N/A' }} x {{ server.cpu_cores || 'N/A' }}</span>
         </div>
         <div class="sysinfo-item" v-if="hasGpuData">
-          <span class="sysinfo-label">🎮 {{ trans.gpuInfo || 'GPU Info' }}</span>
+          <span class="sysinfo-label"><AppIcon name="circuit-board" /> {{ trans.gpuInfo || 'GPU Info' }}</span>
           <span class="sysinfo-value sysinfo-small">{{ gpuInfoText }}</span>
         </div>
         <div class="sysinfo-item">
-          <span class="sysinfo-label">💾 {{ trans.totalDiskRam }}</span>
+          <span class="sysinfo-label"><AppIcon name="hard-drive" /> {{ trans.totalDiskRam }}</span>
           <span class="sysinfo-value">{{ formatBytes(server.disk_total*1024*1024) }} / {{ formatBytes(server.ram_total*1024*1024) }}</span>
         </div>
         <div class="sysinfo-item">
-          <span class="sysinfo-label">📊 {{ trans.loadAvg }}</span>
+          <span class="sysinfo-label"><AppIcon name="activity" /> {{ trans.loadAvg }}</span>
           <span class="sysinfo-value highlight">{{ server.load_avg || '0.00 0.00 0.00' }}</span>
         </div>
         <div class="sysinfo-item">
-          <span class="sysinfo-label">🌐 {{ trans.totalTraffic }}</span>
-          <span class="sysinfo-value sysinfo-small">↓ {{ formatBytes(server.net_rx) }} / ↑ {{ formatBytes(server.net_tx) }}</span>
+          <span class="sysinfo-label"><AppIcon name="globe" /> {{ trans.totalTraffic }}</span>
+          <span class="sysinfo-value sysinfo-small"><AppIcon name="arrow-down" /> {{ formatBytes(server.net_rx) }} / <AppIcon name="arrow-up" /> {{ formatBytes(server.net_tx) }}</span>
         </div>
         <div class="sysinfo-item">
-          <span class="sysinfo-label">⚡ {{ trans.realtimeSpeed }}</span>
-          <span class="sysinfo-value sysinfo-small">↓ {{ formatBytes(server.net_in_speed) }}/s / ↑ {{ formatBytes(server.net_out_speed) }}/s</span>
+          <span class="sysinfo-label"><AppIcon name="zap" /> {{ trans.realtimeSpeed }}</span>
+          <span class="sysinfo-value sysinfo-small"><AppIcon name="arrow-down" /> {{ formatBytes(server.net_in_speed) }}/s / <AppIcon name="arrow-up" /> {{ formatBytes(server.net_out_speed) }}/s</span>
         </div>
         <div class="sysinfo-item" v-if="server.net_rx_monthly">
-          <span class="sysinfo-label">📊 {{ trans.monthlyTraffic }}</span>
-          <span class="sysinfo-value sysinfo-small">↓ {{ formatBytes(server.net_rx_monthly) }} / ↑ {{ formatBytes(server.net_tx_monthly) }}</span>
+          <span class="sysinfo-label"><AppIcon name="bar-chart" /> {{ trans.monthlyTraffic }}</span>
+          <span class="sysinfo-value sysinfo-small"><AppIcon name="arrow-down" /> {{ formatBytes(server.net_rx_monthly) }} / <AppIcon name="arrow-up" /> {{ formatBytes(server.net_tx_monthly) }}</span>
         </div>
         <div class="sysinfo-item" v-if="server.net_rx_monthly">
-          <span class="sysinfo-label">📦 {{ trans.monthlyTrafficLimit }}</span>
+          <span class="sysinfo-label"><AppIcon name="package" /> {{ trans.monthlyTrafficLimit }}</span>
           <span class="sysinfo-value sysinfo-small">
             {{ formatBytes(trafficUsageBytes) }}
             /
@@ -101,11 +101,11 @@
           </span>
         </div>
         <div class="sysinfo-item">
-          <span class="sysinfo-label">🕐 {{ trans.bootTime }}</span>
+          <span class="sysinfo-label"><AppIcon name="clock" /> {{ trans.bootTime }}</span>
           <span class="sysinfo-value sysinfo-small">{{ formatTimestamp(server.boot_time) }}</span>
         </div>
         <div class="sysinfo-item">
-          <span class="sysinfo-label">⏰ {{ trans.lastUpdate }}</span>
+          <span class="sysinfo-label"><AppIcon name="history" /> {{ trans.lastUpdate }}</span>
           <span class="sysinfo-value sysinfo-small">{{ lastUpdateText }}</span>
         </div>
       </div>
@@ -115,7 +115,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('cpu') }">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.cpuUsage }}
           </span>
           <div class="chart-header-actions">
@@ -131,7 +131,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('ram') }">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.memoryUsage }}
           </span>
           <div class="chart-header-actions">
@@ -150,13 +150,13 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('net') }">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.networkTraffic }}
           </span>
           <div class="chart-header-actions">
             <div class="net-indicator">
-              <span class="net-down">▼ {{ formatBytes(server.net_in_speed) }}/s</span>
-              <span class="net-up">▲ {{ formatBytes(server.net_out_speed) }}/s</span>
+              <span class="net-down"><AppIcon name="arrow-down" /> {{ formatBytes(server.net_in_speed) }}/s</span>
+              <span class="net-up"><AppIcon name="arrow-up" /> {{ formatBytes(server.net_out_speed) }}/s</span>
             </div>
             <ChartExpandButton :expanded="isChartExpanded('net')" @toggle="toggleChartExpanded('net')" />
           </div>
@@ -169,7 +169,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('load') }">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.loadAvgMonitor }}
           </span>
           <div class="chart-header-actions">
@@ -189,7 +189,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('disk') }">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.diskUsage }}
           </span>
           <div class="chart-header-actions">
@@ -208,7 +208,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('diskIo') }" v-show="hasDiskIoData">
         <div class="chart-card-header disk-io-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.diskIo || 'Disk IO' }}
           </span>
           <div class="chart-header-actions">
@@ -230,7 +230,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('gpu') }" v-show="hasGpuData">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.gpuUsage || 'GPU Usage' }}
           </span>
           <div class="chart-header-actions">
@@ -246,7 +246,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('gpuMem') }" v-show="hasGpuMemData">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.gpuMemory || 'GPU Memory' }}
           </span>
           <div class="chart-header-actions">
@@ -262,7 +262,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('gpuClock') }" v-show="hasGpuClockData">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.gpuClock || 'GPU SM Clock' }}
           </span>
           <div class="chart-header-actions">
@@ -278,7 +278,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('gpuPower') }" v-show="hasGpuPowerData">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.gpuPower || 'GPU Power' }}
           </span>
           <div class="chart-header-actions">
@@ -294,7 +294,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('proc') }">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.processes }}
           </span>
           <div class="chart-header-actions">
@@ -310,7 +310,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('conn') }">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.connections }}
           </span>
           <div class="chart-header-actions">
@@ -329,7 +329,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('ping') }" v-show="hasPingData">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.latencyMonitor }}
           </span>
           <div class="chart-header-actions">
@@ -349,7 +349,7 @@
       <div class="chart-card" :class="{ 'full-width': isChartExpanded('loss') }" v-show="hasLossData">
         <div class="chart-card-header">
           <span class="chart-title">
-            <span class="chart-title-icon">▸</span>
+            <span class="chart-title-icon"><AppIcon name="chevron-right" /></span>
             {{ trans.packetLoss || 'Packet Loss' }}
           </span>
           <div class="chart-header-actions">
@@ -374,7 +374,7 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <div class="modal-title">$ sudo login</div>
-          <button class="modal-close" @click="showLoginModal = false">✕</button>
+          <button class="modal-close" @click="showLoginModal = false"><AppIcon name="x" /></button>
         </div>
         <div class="modal-body-content">
           <p class="modal-body-text">{{ trans.loginRequired }}</p>
@@ -399,6 +399,7 @@
 import { ref, computed, inject, onMounted, onUnmounted, watch, nextTick, h } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import TerminalHeader from '../components/TerminalHeader.vue'
+import AppIcon from '../components/AppIcon.vue'
 import Footer from '../components/Footer.vue'
 import OsIcon from '../components/OsIcon.vue'
 import LiveConnectionTimeoutModal from '../components/LiveConnectionTimeoutModal.vue'

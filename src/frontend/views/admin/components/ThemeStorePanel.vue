@@ -1,11 +1,11 @@
 <template>
   <div id="tab-theme-store" class="tab-content" :class="{ active: activeTab === 'themeStore' }">
     <div class="settings-section">
-      <div class="section-title"><span>▸</span> {{ trans.themeStore }}</div>
+      <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.themeStore }}</div>
 
       <div class="warning-box mb-4">
         <div class="flex-center-gap-sm">
-          <span class="warning-icon text-xl">⚠️</span>
+          <span class="warning-icon text-xl"><AppIcon name="alert-triangle" /></span>
           <span style="color: var(--accent-yellow); font-weight: 600;">{{ trans.themeStoreWarning }}</span>
         </div>
         <p class="text-secondary text-sm mt-2" style="line-height: 1.6;">{{ trans.themeStoreWarningDesc }}</p>
@@ -37,18 +37,18 @@
             @click="previewCustomTheme"
             class="btn"
             :disabled="!customThemeUrl || previewingThemeId === '__custom__'"
-          >👁 {{ previewingThemeId === '__custom__' ? trans.saving : trans.preview }}</button>
+          ><AppIcon name="eye" /> {{ previewingThemeId === '__custom__' ? trans.saving : trans.preview }}</button>
           <button
             @click="applyCustomTheme"
             class="btn btn-primary"
             :disabled="!customThemeUrl || applyingThemeId === '__custom__'"
-          >⇄ {{ applyingThemeId === '__custom__' ? trans.saving : trans.applyCustomTheme }}</button>
+          ><AppIcon name="arrow-left-right" /> {{ applyingThemeId === '__custom__' ? trans.saving : trans.applyCustomTheme }}</button>
           <button
             v-if="currentThemeUrl"
             @click="clearTheme"
             class="btn"
             :disabled="applyingThemeId === '__builtin__'"
-          >↩ {{ trans.useBuiltinTheme }}</button>
+          ><AppIcon name="undo" /> {{ trans.useBuiltinTheme }}</button>
         </div>
       </div>
 
@@ -59,10 +59,10 @@
 
       <div v-else-if="error" class="danger-box mb-4">
         <div class="flex-center-gap-sm">
-          <span class="danger-icon text-xl">❌</span>
+          <span class="danger-icon text-xl"><AppIcon name="circle-x" /></span>
           <span class="danger-label">{{ error }}</span>
         </div>
-        <button @click="loadThemes" class="btn btn-lg mt-2">↻ {{ trans.refresh }}</button>
+        <button @click="loadThemes" class="btn btn-lg mt-2"><AppIcon name="refresh" /> {{ trans.refresh }}</button>
       </div>
 
       <div class="theme-grid">
@@ -86,14 +86,14 @@
                 class="btn btn-sm"
                 :class="{ 'btn-primary': applyingThemeId !== '__mikus_enable__' && !isMikusThemeActive }"
                 :disabled="applyingThemeId === '__mikus_enable__' || isMikusThemeActive"
-              >✓ {{ applyingThemeId === '__mikus_enable__' ? trans.saving : trans.enable }}</button>
+              ><AppIcon name="check" /> {{ applyingThemeId === '__mikus_enable__' ? trans.saving : trans.enable }}</button>
               <button
                 @click="disableMikusTheme"
                 class="btn btn-sm"
                 :class="{ 'btn-primary': applyingThemeId !== '__mikus_disable__' && isMikusThemeActive }"
                 :disabled="applyingThemeId === '__mikus_disable__' || !isMikusThemeActive"
-              >✕ {{ applyingThemeId === '__mikus_disable__' ? trans.saving : trans.close }}</button>
-              <a href="https://github.com/mikus-loli/komari-mikus" target="_blank" rel="noopener noreferrer" class="btn btn-sm">↗ {{ trans.view }}</a>
+              ><AppIcon name="x" /> {{ applyingThemeId === '__mikus_disable__' ? trans.saving : trans.close }}</button>
+              <a href="https://github.com/mikus-loli/komari-mikus" target="_blank" rel="noopener noreferrer" class="btn btn-sm"><AppIcon name="external-link" /> {{ trans.view }}</a>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@
             <!-- 当前选中版本信息 -->
             <div v-if="getSelectedVersion(theme)" class="theme-version-info">
               <div v-if="getSelectedVersion(theme).releaseDate" class="version-date">
-                📅 {{ getSelectedVersion(theme).releaseDate }}
+                <AppIcon name="calendar" /> {{ getSelectedVersion(theme).releaseDate }}
               </div>
               <div v-if="getSelectedVersion(theme).changelog" class="version-changelog">
                 <div class="changelog-label">{{ trans.changelog }}</div>
@@ -150,13 +150,13 @@
                 @click="previewTheme(theme)"
                 class="btn btn-sm"
                 :disabled="!getSelectedThemeUrl(theme) || previewingThemeId === theme.id"
-              >👁 {{ previewingThemeId === theme.id ? trans.saving : trans.preview }}</button>
+              ><AppIcon name="eye" /> {{ previewingThemeId === theme.id ? trans.saving : trans.preview }}</button>
               <button
                 @click="applyTheme(theme)"
                 class="btn btn-sm btn-primary"
                 :disabled="!getSelectedThemeUrl(theme) || applyingThemeId === theme.id"
-              >⇄ {{ applyingThemeId === theme.id ? trans.saving : trans.switchTheme }}</button>
-              <a v-if="getSafeExternalUrl(theme.url)" :href="getSafeExternalUrl(theme.url)" target="_blank" rel="noopener noreferrer" class="btn btn-sm">↗ {{ trans.view }}</a>
+              ><AppIcon name="arrow-left-right" /> {{ applyingThemeId === theme.id ? trans.saving : trans.switchTheme }}</button>
+              <a v-if="getSafeExternalUrl(theme.url)" :href="getSafeExternalUrl(theme.url)" target="_blank" rel="noopener noreferrer" class="btn btn-sm"><AppIcon name="external-link" /> {{ trans.view }}</a>
             </div>
           </div>
         </div>
@@ -167,6 +167,7 @@
 
 <script setup>
 import { computed, ref, watch, reactive } from 'vue'
+import AppIcon from '../../../components/AppIcon.vue'
 import http from '../../../utils/http'
 import { currentLang } from '../../../utils/i18n'
 import { adminApi } from '../../../utils/api'

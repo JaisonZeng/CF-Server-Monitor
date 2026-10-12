@@ -221,12 +221,22 @@ const getPrivateAccessState = (results) => {
   }
 }
 
+const ERROR_ICON_SIZE = 48
+
+const svgIcon = (name, color, size = ERROR_ICON_SIZE) => {
+  const paths = {
+    'alert-triangle': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+    'circle-x': '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>'
+  }
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;">${paths[name] || ''}</svg>`
+}
+
 const showTurnstileError = (title, desc) => {
   const loading = document.getElementById('loading')
   if (loading) {
     loading.innerHTML = `
       <div class="loading-content">
-        <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+        <div>${svgIcon('alert-triangle', '#ffb870')}</div>
         <div class="loading-text" style="color: #f85149;">${title}</div>
         <div style="font-size: 12px; color: #6b7280; margin-top: 12px; max-width: 480px; text-align: center; line-height: 1.6;">${desc}</div>
       </div>
@@ -262,7 +272,7 @@ const renderStartupTurnstile = async (siteKey, apiIndex) => {
       if (loading) {
         loading.innerHTML = `
           <div class="loading-content">
-            <div style="font-size: 48px; margin-bottom: 16px;">❌</div>
+            <div>${svgIcon('circle-x', '#f85149')}</div>
             <div class="loading-text" style="color: #f85149;">${trans().verificationFailed}</div>
             <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">${trans().refreshToRetry}</div>
           </div>
@@ -276,7 +286,7 @@ const renderStartupTurnstile = async (siteKey, apiIndex) => {
     if (loading) {
       loading.innerHTML = `
         <div class="loading-content">
-          <div style="font-size: 48px; margin-bottom: 16px;">❌</div>
+          <div>${svgIcon('circle-x', '#f85149')}</div>
           <div class="loading-text" style="color: #f85149;">${trans().verificationError}</div>
           <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">${trans().refreshToRetry}</div>
         </div>

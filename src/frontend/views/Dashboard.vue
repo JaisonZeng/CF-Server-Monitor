@@ -32,22 +32,22 @@
               class="toggle-btn"
               :class="{ active: currentView === 'bar' }"
               @click="switchView('bar')"
-            >▤ {{ trans.barChart }}</button>
+            ><AppIcon name="bar-chart" /> {{ trans.barChart }}</button>
             <button
               class="toggle-btn"
               :class="{ active: currentView === 'ring' }"
               @click="switchView('ring')"
-            >◌ {{ trans.ringChart }}</button>
+            ><AppIcon name="circle" /> {{ trans.ringChart }}</button>
             <button
               class="toggle-btn"
               :class="{ active: currentView === 'table' }"
               @click="switchView('table')"
-            >≡ {{ trans.table }}</button>
+            ><AppIcon name="table" /> {{ trans.table }}</button>
             <button
               class="toggle-btn"
               :class="{ active: currentView === 'map' }"
               @click="switchView('map')"
-            >◉ {{ trans.map }}</button>
+            ><AppIcon name="map" /> {{ trans.map }}</button>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@
             :data-filter="item.code"
             @click="setFilter(item.code)"
           >
-            <span v-if="item.code === 'unknown'" class="filter-tag-icon">🏳️</span>
+            <span v-if="item.code === 'unknown'" class="filter-tag-icon"><AppIcon name="flag" /></span>
             <img v-else-if="item.flagCode" :src="getPublicAssetUrl('flags/' + item.flagCode + '.svg')" :alt="item.code">
             <span class="filter-tag-label">{{ item.label }}</span>
             <span class="filter-tag-count">{{ item.count }}</span>
@@ -87,7 +87,7 @@
                 :data-filter="item.code"
                 @click="setFilter(item.code)"
               >
-                <span v-if="item.code === 'unknown'" class="filter-tag-icon">🏳️</span>
+                <span v-if="item.code === 'unknown'" class="filter-tag-icon"><AppIcon name="flag" /></span>
                 <img v-else-if="item.flagCode" :src="getPublicAssetUrl('flags/' + item.flagCode + '.svg')" :alt="item.code">
                 <span class="filter-tag-label">{{ item.label }}</span>
                 <span class="filter-tag-count">{{ item.count }}</span>
@@ -102,7 +102,7 @@
             type="button"
             class="filter-tag filter-measure-tag"
           >
-            <span v-if="item.code === 'unknown'" class="filter-tag-icon">🏳️</span>
+            <span v-if="item.code === 'unknown'" class="filter-tag-icon"><AppIcon name="flag" /></span>
             <img v-else-if="item.flagCode" :src="getPublicAssetUrl('flags/' + item.flagCode + '.svg')" :alt="item.code">
             <span class="filter-tag-label">{{ item.label }}</span>
             <span class="filter-tag-count">{{ item.count }}</span>
@@ -128,13 +128,13 @@
       </div>
       <div class="stat-item">
         <div class="stat-label">{{ trans.totalTraffic }}</div>
-        <div class="stat-main-value stat-main-value-sm">{{ formatBytes(stats.globalNetRx) }} ↓ | ↑ {{ formatBytes(stats.globalNetTx) }}</div>
+        <div class="stat-main-value stat-main-value-sm">{{ formatBytes(stats.globalNetRx) }} <AppIcon name="arrow-down" /> | <AppIcon name="arrow-up" /> {{ formatBytes(stats.globalNetTx) }}</div>
       </div>
       <div class="stat-item">
         <div class="stat-label">{{ trans.realtimeSpeed }}</div>
         <div class="stat-main-value stat-main-value-sm">
-          <span class="stat-net-down-color">↓ {{ formatBytes(stats.globalSpeedIn) }}/s</span> |
-          <span class="stat-net-up-color">↑ {{ formatBytes(stats.globalSpeedOut) }}/s</span>
+          <span class="stat-net-down-color"><AppIcon name="arrow-down" /> {{ formatBytes(stats.globalSpeedIn) }}/s</span> |
+          <span class="stat-net-up-color"><AppIcon name="arrow-up" /> {{ formatBytes(stats.globalSpeedOut) }}/s</span>
         </div>
       </div>
       <div
@@ -218,7 +218,7 @@
                   <img :src="getPublicAssetUrl('flags/' + getFlagRegionCode(server.region) + '.svg')" :alt="server.region" class="flag-img">
                 </span>
                 <span v-else class="country-os-icons">
-                  <span class="flag-fallback">🏳️</span>
+                  <span class="flag-fallback"><AppIcon name="flag" /></span>
                 </span>
                 {{ (server.region || 'XX').toUpperCase() }}
               </td>
@@ -289,11 +289,11 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <div class="modal-title">$ cors --error</div>
-          <button class="modal-close" @click="hasCorsError = null">✕</button>
+          <button class="modal-close" @click="hasCorsError = null"><AppIcon name="x" /></button>
         </div>
         <div v-for="site in hasCorsError" :key="site" class="danger-box mb-4">
           <div class="flex-center-gap-sm">
-            <span class="danger-label">❌ {{ site }} {{ trans.corsBlocked }}</span>
+            <span class="danger-label"><AppIcon name="circle-x" /> {{ site }} {{ trans.corsBlocked }}</span>
           </div>
         </div>
         <div class="modal-footer flex-justify-end">
@@ -306,7 +306,7 @@
       <div class="modal-dialog finance-modal-dialog">
         <div class="modal-header">
           <div class="modal-title">$ finance --summary</div>
-          <button class="modal-close" @click="financeModalOpen = false">✕</button>
+          <button class="modal-close" @click="financeModalOpen = false"><AppIcon name="x" /></button>
         </div>
 
         <div class="finance-summary-grid">
@@ -370,6 +370,7 @@ import TerminalHeader from '../components/TerminalHeader.vue'
 import ServerBarCard from '../components/ServerBarCard.vue'
 import ServerRingCard from '../components/ServerRingCard.vue'
 import Footer from '../components/Footer.vue'
+import AppIcon from '../components/AppIcon.vue'
 import OsIcon from '../components/OsIcon.vue'
 import LiveConnectionTimeoutModal from '../components/LiveConnectionTimeoutModal.vue'
 import { fetchConfig, fetchServersAll, fetchServersAllWithProgress, formatBytes, createLiveSocket, getFlagRegionCode, isServerOnline, normalizeLiveSocketTimeoutMinutes } from '../utils/api.js'

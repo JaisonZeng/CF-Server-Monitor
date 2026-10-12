@@ -4,7 +4,7 @@
       <div class="alert-line">
         <span>{{ trans.installCommand }}</span>
         <HelpTooltip>
-          <span>{{ trans.clickToCopy }} <strong>📋</strong> {{ trans.installCommand }}</span>
+          <span>{{ trans.clickToCopy }} <strong><AppIcon name="clipboard" /></strong> {{ trans.installCommand }}</span>
         </HelpTooltip>
       </div>
     </div>
@@ -23,15 +23,15 @@
           class="toolbar-select toolbar-custom-input"
           :placeholder="trans.default || 'Default'"
         >
-        <button v-if="newServerGroup" @click="newServerGroup = ''" class="toolbar-select-clear" aria-label="Clear">✕</button>
+        <button v-if="newServerGroup" @click="newServerGroup = ''" class="toolbar-select-clear" aria-label="Clear"><AppIcon name="x" /></button>
       </div>
       <button @click="$emit('add-server')" class="btn btn-primary">+ {{ trans.addServer }}</button>
     </div>
 
     <div class="batch-actions">
-      <button @click="$emit('batch-edit')" class="btn btn-blue" :disabled="selectedServers.length === 0">✏️ {{ trans.batchEdit }}</button>
-      <button @click="$emit('batch-delete')" class="btn btn-red">🗑 {{ trans.batchDelete }}</button>
-      <button @click="$emit('toggle-select-all')" class="btn">☐ {{ trans.toggleAll }}</button>
+      <button @click="$emit('batch-edit')" class="btn btn-blue" :disabled="selectedServers.length === 0"><AppIcon name="pencil" /> {{ trans.batchEdit }}</button>
+      <button @click="$emit('batch-delete')" class="btn btn-red"><AppIcon name="trash" /> {{ trans.batchDelete }}</button>
+      <button @click="$emit('toggle-select-all')" class="btn"><AppIcon name="square" /> {{ trans.toggleAll }}</button>
     </div>
 
     <div class="table-wrapper">
@@ -58,7 +58,7 @@
         </thead>
         <tbody>
           <tr v-if="servers.length === 0">
-            <td colspan="14" class="empty-state"><span class="empty-icon">📦</span> {{ trans.noServers }}</td>
+            <td colspan="14" class="empty-state"><span class="empty-icon"><AppIcon name="package" :size="40" /></span> {{ trans.noServers }}</td>
           </tr>
           <tr
             v-for="server in servers"
@@ -74,7 +74,7 @@
               @pointermove="handlePointerMove"
               @pointerup="handlePointerUp"
               @pointercancel="handlePointerCancel"
-            >⋮⋮</td>
+            ><AppIcon name="grip-vertical" /></td>
             <td class="table-center-cell"><input type="checkbox" class="server-checkbox" :value="server.id" :checked="selectedServers.includes(server.id)" @change="$emit('toggle-server', server.id)"></td>
             <td>
               <div class="server-info">
@@ -83,7 +83,7 @@
                   <OsIcon :os="server.os" />
                 </span>
                 <span v-else class="country-os-icons">
-                  <span class="flag-fallback">🏳️</span>
+                  <span class="flag-fallback"><AppIcon name="flag" /></span>
                   <OsIcon :os="server.os" />
                 </span>
                 <a
@@ -148,17 +148,17 @@
                 class="spec-text"
                 :class="[getAgentVersionClass(server.agent_version), { 'spec-copied': isSpecCopied(server, 'agent_version') }]"
                 @click.stop="emitCopySpec(server, 'agent_version', server.agent_version)"
-              >{{ server.agent_version || '●' }}</span>
+              >{{ server.agent_version || '' }}</span>
             </td>
             <td>
-              <span :style="{ color: server.is_online ? 'var(--accent-green)' : 'var(--accent-red)' }" class="font-bold">{{ (server.is_online ? '● ' + trans.online : '● ' + trans.offline).toUpperCase() }}</span>
+              <span :style="{ color: server.is_online ? 'var(--accent-green)' : 'var(--accent-red)' }" class="font-bold"><AppIcon name="dot" /> {{ (server.is_online ? trans.online : trans.offline).toUpperCase() }}</span>
             </td>
             <td>
               <div class="action-group">
                 <div class="action-btns">
-                  <button @click="$emit('copy-cmd', server.id)" class="btn btn-icon btn-green" :aria-label="trans.copy">{{ copiedServerId === server.id ? '✅' : '📋' }}</button>
-                  <button @click="$emit('edit', server)" class="btn btn-icon btn-blue" :aria-label="trans.edit">✏️</button>
-                  <button @click="$emit('delete', server.id)" class="btn btn-icon btn-red" :aria-label="trans.delete">🗑️</button>
+                  <button @click="$emit('copy-cmd', server.id)" class="btn btn-icon btn-green" :aria-label="trans.copy"><AppIcon :name="copiedServerId === server.id ? 'circle-check' : 'clipboard'" /></button>
+                  <button @click="$emit('edit', server)" class="btn btn-icon btn-blue" :aria-label="trans.edit"><AppIcon name="pencil" /></button>
+                  <button @click="$emit('delete', server.id)" class="btn btn-icon btn-red" :aria-label="trans.delete"><AppIcon name="trash" /></button>
                 </div>
               </div>
             </td>
@@ -176,6 +176,7 @@ import { getPublicAssetUrl } from '../../../utils/config'
 import { currentLang } from '../../../utils/i18n'
 import { detectBillingCycle, detectCurrencySymbol, getBillingCycleOption, isEnabledFlag, isFreePrice, normalizeCurrency, normalizePrice } from '../../../utils/server.js'
 import OsIcon from '../../../components/OsIcon.vue'
+import AppIcon from '../../../components/AppIcon.vue'
 import HelpTooltip from '../../../components/HelpTooltip.vue'
 
 const props = defineProps({

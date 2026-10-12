@@ -2,7 +2,7 @@
   <div id="tab-settings" class="tab-content" :class="{ active: activeTab === 'settings' }">
     <div class="settings-grid">
       <div class="settings-section" v-if="currentOrigin === selectedApiBase">
-        <div class="section-title"><span>▸</span> {{ trans.appearance }} 1</div>
+        <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.appearance }} 1</div>
 
         <div class="form-row">
           <div class="form-group flex-1">
@@ -49,7 +49,7 @@
             <div class="flex" style="gap:8px;">
               <input type="text" v-model="settings.custom_bg" class="form-input flex-1" placeholder="https://...">
               <div class="upload-btn-wrapper">
-                <button class="btn btn-margin-0">📁 {{ trans.upload }}</button>
+                <button class="btn btn-margin-0"><AppIcon name="folder" /> {{ trans.upload }}</button>
                 <input type="file" accept="image/*" @change="$emit('upload-bg', $event)">
               </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="flex" style="gap:8px;">
               <input type="text" v-model="settings.custom_bg_mobile" class="form-input flex-1" placeholder="https://...">
               <div class="upload-btn-wrapper">
-                <button class="btn btn-margin-0">📁 {{ trans.upload }}</button>
+                <button class="btn btn-margin-0"><AppIcon name="folder" /> {{ trans.upload }}</button>
                 <input type="file" accept="image/*" @change="$emit('upload-bg-mobile', $event)">
               </div>
             </div>
@@ -79,7 +79,7 @@
             <div class="flex" style="gap:8px;">
               <input type="text" v-model="settings.favicon" class="form-input flex-1" placeholder="https://...">
               <div class="upload-btn-wrapper">
-                <button class="btn btn-margin-0">📁 {{ trans.upload }}</button>
+                <button class="btn btn-margin-0"><AppIcon name="folder" /> {{ trans.upload }}</button>
                 <input type="file" accept="image/*,.ico" @change="$emit('upload-favicon', $event)">
               </div>
             </div>
@@ -109,7 +109,7 @@
       </div>
 
       <div class="settings-section" v-if="currentOrigin === selectedApiBase">
-        <div class="section-title"><span>▸</span> {{ trans.appearance }} 2</div>
+        <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.appearance }} 2</div>
 
         <div class="form-row">
           <div class="form-group flex-1">
@@ -141,7 +141,7 @@
       </div>
 
       <div class="settings-section">
-        <div class="section-title"><span>▸</span> {{ trans.displayOptions }}</div>
+        <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.displayOptions }}</div>
 
         <div class="form-row">
           <div class="form-group flex-1 checkbox-item">
@@ -233,7 +233,7 @@
       </div>
 
       <div class="settings-section">
-        <div class="section-title"><span>▸</span> {{ trans.notifications }}</div>
+        <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.notifications }}</div>
         <div class="form-row">
           <div class="form-group flex-1">
             <label class="form-label">{{ trans.offlineAlert }}</label>
@@ -277,7 +277,7 @@
             <div class="password-input-wrapper">
               <input type="text" name="tg_bot_token" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" v-model="settings.tg_bot_token" :class="['form-input', { 'secret-input-masked': !passwordVisible.tgBotToken }]" placeholder="Bot Token or Webhook URL">
               <button type="button" class="password-toggle" @click="$emit('toggle-password', 'tgBotToken')">
-                {{ passwordVisible.tgBotToken ? '🙈' : '👁️' }}
+                <AppIcon :name="passwordVisible.tgBotToken ? 'eye-off' : 'eye'" />
               </button>
             </div>
           </div>
@@ -287,7 +287,7 @@
             <div class="password-input-wrapper">
               <input type="text" name="tg_chat_id" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" v-model="settings.tg_chat_id" :class="['form-input', { 'secret-input-masked': !passwordVisible.tgChatId }]" placeholder="Optional Chat ID">
               <button type="button" class="password-toggle" @click="$emit('toggle-password', 'tgChatId')">
-                {{ passwordVisible.tgChatId ? '🙈' : '👁️' }}
+                <AppIcon :name="passwordVisible.tgChatId ? 'eye-off' : 'eye'" />
               </button>
             </div>
           </div>
@@ -340,7 +340,7 @@
               <div class="password-input-wrapper">
                 <input type="text" name="smtp_password" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" v-model="smtpConfig.password" @blur="validateSmtpField('password')" :class="['form-input', { 'secret-input-masked': !passwordVisible.smtpPassword }]" placeholder="SMTP password / app password">
                 <button type="button" class="password-toggle" @click="$emit('toggle-password', 'smtpPassword')">
-                  {{ passwordVisible.smtpPassword ? '🙈' : '👁️' }}
+                  <AppIcon :name="passwordVisible.smtpPassword ? 'eye-off' : 'eye'" />
                 </button>
               </div>
               <p v-if="smtpErrors.password" class="text-danger text-sm">{{ smtpErrors.password }}</p>
@@ -384,7 +384,7 @@
                   placeholder="https://example.com/webhook"
                 >
                 <button type="button" class="password-toggle" @click="$emit('toggle-password', 'notificationWebhookUrl')">
-                  {{ passwordVisible.notificationWebhookUrl ? '🙈' : '👁️' }}
+                  <AppIcon :name="passwordVisible.notificationWebhookUrl ? 'eye-off' : 'eye'" />
                 </button>
               </div>
             </div>
@@ -484,7 +484,7 @@
 
         <div class="form-row">
           <div class="form-group flex-1">
-            <button type="button" @click="$emit('send-test-notification')" class="btn btn-primary" :disabled="testNotificationLoading">{{ testNotificationLoading ? '⏳' : '📨' }} {{ trans.sendTestNotification }}</button>
+            <button type="button" @click="$emit('send-test-notification')" class="btn btn-primary" :disabled="testNotificationLoading"><AppIcon :name="testNotificationLoading ? 'loader' : 'send'" :spin="testNotificationLoading" /> {{ trans.sendTestNotification }}</button>
           </div>
         </div>
 
@@ -495,7 +495,7 @@
             :aria-expanded="resourceAlertExpanded"
             @click="toggleResourceAlertExpanded"
           >
-            <span class="resource-alert-caret" :class="{ expanded: resourceAlertExpanded }">▸</span>
+            <span class="resource-alert-caret" :class="{ expanded: resourceAlertExpanded }"><AppIcon name="chevron-right" /></span>
             <span class="section-subtitle">{{ trans.resourceAlert }}</span>
             <span class="resource-alert-count">[{{ resourceAlertRules.length }}]</span>
             <span class="resource-alert-toggle-text">{{ resourceAlertToggleText }}</span>
@@ -581,7 +581,7 @@
       </div>
 
       <div class="settings-section">
-        <div class="section-title"><span>▸</span> {{ trans.securitySettings }}</div>
+        <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.securitySettings }}</div>
 
         <div class="form-row">
           <div class="form-group flex-1">
@@ -613,7 +613,7 @@
             <div class="password-input-wrapper">
               <input type="text" name="turnstile_secret_key" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" v-model="settings.turnstile_secret_key" :class="['form-input', { 'secret-input-masked': !passwordVisible.turnstileSecret }]" :placeholder="trans.turnstileSecretKeyPlaceholder">
               <button type="button" class="password-toggle" @click="$emit('toggle-password', 'turnstileSecret')">
-                {{ passwordVisible.turnstileSecret ? '🙈' : '👁️' }}
+                <AppIcon :name="passwordVisible.turnstileSecret ? 'eye-off' : 'eye'" />
               </button>
             </div>
           </div>
@@ -627,7 +627,7 @@
           <div class="password-input-wrapper">
             <input type="text" name="jwt_secret" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" v-model="settings.jwt_secret" :class="['form-input', { 'secret-input-masked': !passwordVisible.jwtSecret }]" placeholder="••••••••••••••••••••••••••••••••">
             <button type="button" class="password-toggle" @click="$emit('toggle-password', 'jwtSecret')">
-              {{ passwordVisible.jwtSecret ? '🙈' : '👁️' }}
+              <AppIcon :name="passwordVisible.jwtSecret ? 'eye-off' : 'eye'" />
             </button>
           </div>
         </div>
@@ -635,7 +635,7 @@
       </div>
 
       <div class="settings-section">
-        <div class="section-title"><span>▸</span> {{ trans.cloudflareSettings }}</div>
+        <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.cloudflareSettings }}</div>
 
         <div class="form-row">
           <div class="form-group flex-1">
@@ -651,7 +651,7 @@
             <div class="password-input-wrapper">
               <input type="text" name="cloudflare_token" autocomplete="off" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" v-model="settings.cloudflare_token" :class="['form-input', { 'secret-input-masked': !passwordVisible.cloudflareToken }]" :placeholder="trans.cloudflareTokenPlaceholder">
               <button type="button" class="password-toggle" @click="$emit('toggle-password', 'cloudflareToken')">
-                {{ passwordVisible.cloudflareToken ? '🙈' : '👁️' }}
+                <AppIcon :name="passwordVisible.cloudflareToken ? 'eye-off' : 'eye'" />
               </button>
             </div>
           </div>
@@ -659,14 +659,14 @@
 
         <div class="form-row">
           <div class="form-group  flex-1">
-            <button type="button" @click="$emit('query-d1-usage')" class="btn btn-primary btn-lg" :disabled="d1UsageLoading">{{ d1UsageLoading ? '⏳' : '🔍' }} {{ trans.queryD1Quota }}</button>
+            <button type="button" @click="$emit('query-d1-usage')" class="btn btn-primary btn-lg" :disabled="d1UsageLoading"><AppIcon :name="d1UsageLoading ? 'loader' : 'search'" :spin="d1UsageLoading" /> {{ trans.queryD1Quota }}</button>
           </div>
         </div>
 
       </div>
 
       <div class="settings-section">
-        <div class="section-title"><span>▸</span> {{ trans.adminLoginSettings }}</div>
+        <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.adminLoginSettings }}</div>
 
         <div class="form-group">
           <label class="form-label">{{ trans.username }}</label>
@@ -708,7 +708,7 @@
                 :placeholder="settings.password_configured ? '••••••••' : ''"
               >
               <button type="button" class="password-toggle" @click="$emit('toggle-password', 'password')">
-                {{ passwordVisible.password ? '🙈' : '👁️' }}
+                <AppIcon :name="passwordVisible.password ? 'eye-off' : 'eye'" />
               </button>
             </div>
           </div>
@@ -729,7 +729,7 @@
                 :placeholder="settings.password_configured ? '••••••••' : ''"
               >
               <button type="button" class="password-toggle" @click="$emit('toggle-password', 'confirmPassword')">
-                {{ passwordVisible.confirmPassword ? '🙈' : '👁️' }}
+                <AppIcon :name="passwordVisible.confirmPassword ? 'eye-off' : 'eye'" />
               </button>
             </div>
           </div>
@@ -738,43 +738,43 @@
       </div>
 
       <div class="settings-section">
-        <div class="section-title"><span>▸</span> {{ trans.pingNodes }}</div>
+        <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.pingNodes }}</div>
 
         <div class="ping-node-grid">
           <div class="ping-node-item">
-            <div class="ping-node-fields"><input type="text" v-model.trim="settings.custom_ct_name" class="form-input ping-node-name"><span class="ping-node-arrow">→</span>
+            <div class="ping-node-fields"><input type="text" v-model.trim="settings.custom_ct_name" class="form-input ping-node-name"><span class="ping-node-arrow"><AppIcon name="arrow-right" /></span>
             <input type="text" v-model.trim="settings.custom_ct" :class="['form-input', { 'input-invalid': pingNodeErrors.custom_ct }]" placeholder="gd-ct-dualstack.ip.zstaticcdn.com">
             </div><p v-if="pingNodeErrors.custom_ct" class="text-red text-sm mt-1">{{ pingNodeErrors.custom_ct }}</p>
           </div>
 
           <div class="ping-node-item">
-            <div class="ping-node-fields"><input type="text" v-model.trim="settings.custom_cu_name" class="form-input ping-node-name"><span class="ping-node-arrow">→</span>
+            <div class="ping-node-fields"><input type="text" v-model.trim="settings.custom_cu_name" class="form-input ping-node-name"><span class="ping-node-arrow"><AppIcon name="arrow-right" /></span>
             <input type="text" v-model.trim="settings.custom_cu" :class="['form-input', { 'input-invalid': pingNodeErrors.custom_cu }]" placeholder="gd-cu-dualstack.ip.zstaticcdn.com">
             </div><p v-if="pingNodeErrors.custom_cu" class="text-red text-sm mt-1">{{ pingNodeErrors.custom_cu }}</p>
           </div>
         </div>
         <div class="ping-node-grid">
           <div class="ping-node-item">
-            <div class="ping-node-fields"><input type="text" v-model.trim="settings.custom_cm_name" class="form-input ping-node-name"><span class="ping-node-arrow">→</span>
+            <div class="ping-node-fields"><input type="text" v-model.trim="settings.custom_cm_name" class="form-input ping-node-name"><span class="ping-node-arrow"><AppIcon name="arrow-right" /></span>
             <input type="text" v-model.trim="settings.custom_cm" :class="['form-input', { 'input-invalid': pingNodeErrors.custom_cm }]" placeholder="gd-cm-dualstack.ip.zstaticcdn.com">
             </div><p v-if="pingNodeErrors.custom_cm" class="text-red text-sm mt-1">{{ pingNodeErrors.custom_cm }}</p>
           </div>
 
           <div class="ping-node-item">
-            <div class="ping-node-fields"><input type="text" v-model.trim="settings.custom_bd_name" class="form-input ping-node-name"><span class="ping-node-arrow">→</span>
+            <div class="ping-node-fields"><input type="text" v-model.trim="settings.custom_bd_name" class="form-input ping-node-name"><span class="ping-node-arrow"><AppIcon name="arrow-right" /></span>
             <input type="text" v-model.trim="settings.custom_bd" :class="['form-input', { 'input-invalid': pingNodeErrors.custom_bd }]" placeholder="ip.zstaticcdn.com">
             </div><p v-if="pingNodeErrors.custom_bd" class="text-red text-sm mt-1">{{ pingNodeErrors.custom_bd }}</p>
           </div>
         </div>
         <div class="ping-node-grid">
           <div v-for="field in ['node_1', 'node_2']" :key="field" class="ping-node-item">
-            <div class="ping-node-fields"><input type="text" v-model.trim="settings[`${field}_name`]" class="form-input ping-node-name"><span class="ping-node-arrow">→</span><input type="text" v-model.trim="settings[field]" :class="['form-input', { 'input-invalid': pingNodeErrors[field] }]" placeholder="host[:port] / [IPv6]:port"></div>
+            <div class="ping-node-fields"><input type="text" v-model.trim="settings[`${field}_name`]" class="form-input ping-node-name"><span class="ping-node-arrow"><AppIcon name="arrow-right" /></span><input type="text" v-model.trim="settings[field]" :class="['form-input', { 'input-invalid': pingNodeErrors[field] }]" placeholder="host[:port] / [IPv6]:port"></div>
             <p v-if="pingNodeErrors[field]" class="text-red text-sm mt-1">{{ pingNodeErrors[field] }}</p>
           </div>
         </div>
         <div class="ping-node-grid">
           <div v-for="field in ['node_3', 'node_4']" :key="field" class="ping-node-item">
-            <div class="ping-node-fields"><input type="text" v-model.trim="settings[`${field}_name`]" class="form-input ping-node-name"><span class="ping-node-arrow">→</span><input type="text" v-model.trim="settings[field]" :class="['form-input', { 'input-invalid': pingNodeErrors[field] }]" placeholder="host[:port] / [IPv6]:port"></div>
+            <div class="ping-node-fields"><input type="text" v-model.trim="settings[`${field}_name`]" class="form-input ping-node-name"><span class="ping-node-arrow"><AppIcon name="arrow-right" /></span><input type="text" v-model.trim="settings[field]" :class="['form-input', { 'input-invalid': pingNodeErrors[field] }]" placeholder="host[:port] / [IPv6]:port"></div>
             <p v-if="pingNodeErrors[field]" class="text-red text-sm mt-1">{{ pingNodeErrors[field] }}</p>
           </div>
         </div>
@@ -782,7 +782,7 @@
     </div>
 
     <div class="text-right mt-5">
-      <button @click="$emit('save-settings')" class="btn btn-primary btn-lg" :disabled="saving || hasPingNodeErrors">{{ saving ? '⏳' : '💾' }} {{ saving ? trans.saving : trans.saveConfig }}</button>
+      <button @click="$emit('save-settings')" class="btn btn-primary btn-lg" :disabled="saving || hasPingNodeErrors"><AppIcon :name="saving ? 'loader' : 'save'" :spin="saving" /> {{ saving ? trans.saving : trans.saveConfig }}</button>
     </div>
   </div>
 </template>
@@ -790,6 +790,7 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import HelpTooltip from '../../../components/HelpTooltip.vue'
+import AppIcon from '../../../components/AppIcon.vue'
 import { FRONTEND_WS_TIMEOUT_MINUTES_MAX, HISTORY } from '../../../utils/constants.js'
 import { currentLang } from '../../../utils/i18n.js'
 import { PING_NODE_FIELDS, validatePingNode } from '../../../utils/pingNode.js'

@@ -2,7 +2,7 @@
   <div id="login-overlay" class="login-overlay">
     <div class="login-container">
       <div class="login-header">
-        <div class="login-icon">🔐</div>
+        <div class="login-icon"><AppIcon name="lock" :size="40" /></div>
         <h2 class="login-title">{{ trans.adminLogin }}</h2>
         <p class="login-subtitle">{{ trans.enterCredentials }}</p>
       </div>
@@ -28,7 +28,7 @@
           <div class="password-input-wrapper">
             <input :type="passwordVisible.login ? 'text' : 'password'" name="password" autocomplete="current-password" v-model="loginForm.password" required class="login-input" placeholder="••••••••">
             <button type="button" class="password-toggle" @click="$emit('toggle-password', 'login')">
-              {{ passwordVisible.login ? '🙈' : '👁️' }}
+              <AppIcon :name="passwordVisible.login ? 'eye-off' : 'eye'" />
             </button>
           </div>
         </div>
@@ -36,7 +36,7 @@
           <div id="admin-turnstile-container"></div>
         </div>
         <div v-if="loginError" id="login-error" class="login-error">{{ loginError }}</div>
-        <button type="submit" class="login-btn">{{ loginLoading ? '⏳' : trans.login }}</button>
+        <button type="submit" class="login-btn"><AppIcon v-if="loginLoading" name="loader" spin /> {{ loginLoading ? '' : trans.login }}</button>
       </form>
     </div>
     <Footer />
@@ -45,6 +45,7 @@
 
 <script setup>
 import Footer from '../../../components/Footer.vue'
+import AppIcon from '../../../components/AppIcon.vue'
 
 defineProps({
   trans: { type: Object, required: true },

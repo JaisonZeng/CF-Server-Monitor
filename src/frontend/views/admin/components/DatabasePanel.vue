@@ -1,32 +1,32 @@
 <template>
   <div id="tab-database" class="tab-content" :class="{ active: activeTab === 'database' }">
     <div class="settings-section">
-      <div class="section-title"><span>▸</span> {{ trans.dbManagement }}</div>
+      <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.dbManagement }}</div>
 
       <div class="settings-grid">
         <div class="form-group">
           <label class="form-label">{{ trans.upgradeDatabase }}</label>
           <p class="text-muted mb-2">{{ trans.upgradeDesc }}</p>
-          <button @click="$emit('open-db-modal', 'upgrade')" class="btn btn-primary btn-lg" :disabled="dbLoading">⬆️ {{ trans.upgradeDatabase }}</button>
+          <button @click="$emit('open-db-modal', 'upgrade')" class="btn btn-primary btn-lg" :disabled="dbLoading"><AppIcon name="arrow-up" /> {{ trans.upgradeDatabase }}</button>
         </div>
 
         <div class="form-group">
-          <label class="form-label danger-label">⚠️ {{ trans.clearHistory }}</label>
+          <label class="form-label danger-label"><AppIcon name="alert-triangle" /> {{ trans.clearHistory }}</label>
           <p class="text-muted mb-2">{{ trans.clearHistoryDesc }}</p>
-          <button @click="$emit('open-db-modal', 'clearHistory')" class="btn btn-red btn-lg" :disabled="dbLoading">🗑️ {{ trans.clearHistory }}</button>
+          <button @click="$emit('open-db-modal', 'clearHistory')" class="btn btn-red btn-lg" :disabled="dbLoading"><AppIcon name="trash" /> {{ trans.clearHistory }}</button>
         </div>
       </div>
     </div>
 
     <div class="settings-section">
-      <div class="section-title"><span>▸</span> {{ trans.exportServers }} / {{ trans.importServers }}</div>
+      <div class="section-title"><span><AppIcon name="chevron-right" /></span> {{ trans.exportServers }} / {{ trans.importServers }}</div>
 
       <div class="settings-grid">
         <div class="form-group">
           <label class="form-label">{{ trans.exportServers }}</label>
           <p class="text-muted mb-2">{{ trans.exportServersDesc }}</p>
           <button @click="handleExport" class="btn btn-primary btn-lg" :disabled="dbLoading || exporting">
-            {{ exporting ? trans.exporting : '📤 ' + trans.exportServers }}
+            {{ exporting ? trans.exporting : '' }}<AppIcon v-if="!exporting" name="upload" /> {{ exporting ? '' : trans.exportServers }}
           </button>
         </div>
 
@@ -41,7 +41,7 @@
             @change="handleFileSelect"
           />
           <button @click="$refs.fileInput.click()" class="btn btn-lg" :disabled="dbLoading || importing">
-            {{ importing ? trans.importing : '📥 ' + trans.importServers }}
+            {{ importing ? trans.importing : '' }}<AppIcon v-if="!importing" name="download" /> {{ importing ? '' : trans.importServers }}
           </button>
         </div>
       </div>
@@ -50,7 +50,7 @@
         <div :class="importResult.success ? 'warning-box' : 'danger-box'" class="mb-2">
           <div class="flex-center-gap-sm">
             <span :style="{ color: importResult.success ? 'var(--accent-green)' : 'var(--accent-red)', fontWeight: '600' }">
-              {{ importResult.success ? '✅' : '❌' }} {{ trans.importResult }}
+              <AppIcon :name="importResult.success ? 'circle-check' : 'circle-x'" /> {{ trans.importResult }}
             </span>
           </div>
           <div class="mt-2 text-sm">
@@ -68,6 +68,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import AppIcon from '../../../components/AppIcon.vue'
 import { adminApi } from '../../../utils/api'
 
 const props = defineProps({

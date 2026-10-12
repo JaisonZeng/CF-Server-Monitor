@@ -8,7 +8,7 @@
             <OsIcon :os="server.os" />
           </span>
           <span v-else class="country-os-icons">
-            <span class="flag-fallback">🏳️</span>
+            <span class="flag-fallback"><AppIcon name="flag" /></span>
             <OsIcon :os="server.os" />
           </span>
           <span class="server-name">{{ server.name }}</span>
@@ -17,9 +17,9 @@
       </div>
       <div class="server-meta">
         <div class="card-meta">
-          <div v-if="sysConfig.show_price && priceText" class="card-meta-item">💰 {{ priceText }}</div>
+          <div v-if="sysConfig.show_price && priceText" class="card-meta-item"><AppIcon name="circle-dollar" /> {{ priceText }}</div>
           <div v-if="sysConfig.show_expire && server.expire_date" class="card-meta-item card-meta-expire">
-            📅 <span :class="{ 'expired': isExpired }">{{ expireText }}</span>
+            <AppIcon name="calendar" /> <span :class="{ 'expired': isExpired }">{{ expireText }}</span>
             <span v-if="expireDateTitle" class="card-meta-tooltip">{{ expireDateTitle }}</span>
           </div>
         </div>
@@ -83,8 +83,8 @@
       <div class="server-card-network-row">
         <span class="server-card-network-label">{{ trans.networkTraffic }}</span>
         <span class="server-card-network-values">
-          <span class="server-card-speed-up">↑ {{ netOutSpeed }}/s</span>
-          <span class="server-card-speed-down">↓ {{ netInSpeed }}/s</span>
+          <span class="server-card-speed-up"><AppIcon name="arrow-up" /> {{ netOutSpeed }}/s</span>
+          <span class="server-card-speed-down"><AppIcon name="arrow-down" /> {{ netInSpeed }}/s</span>
         </span>
       </div>
       <div class="server-card-network-row">
@@ -98,14 +98,15 @@
       <div class="server-card-network-row">
         <span class="server-card-network-label">{{ trans.totalTraffic }}</span>
         <span class="server-card-network-values server-card-total-values">
-          <span>↑ {{ totalTx }}</span>
-          <span>↓ {{ totalRx }}</span>
+          <span><AppIcon name="arrow-up" /> {{ totalTx }}</span>
+          <span><AppIcon name="arrow-down" /> {{ totalRx }}</span>
         </span>
       </div>
       <div v-if="sysConfig.show_tf" class="server-card-limit-section">
         <div class="server-card-limit-header">
           <span>{{ trans.monthlyTraffic }}</span>
-          <span>{{ trafficLimitText }}<template v-if="trafficLimitSummary"> | {{ trafficLimitPercentText }}%</template></span>
+          <span v-if="trafficLimitSummary">{{ trafficLimitText }} | {{ trafficLimitPercentText }}%</span>
+          <span v-else><AppIcon name="arrow-down" /> {{ totalRxMonthly }} <AppIcon name="arrow-up" /> {{ totalTxMonthly }}</span>
         </div>
         <div class="server-card-limit-bar">
           <div v-if="trafficLimitSummary" class="server-card-limit-fill" :style="{ width: Math.min(100, trafficUsagePercent) + '%', background: getUsageColor(trafficUsagePercent) }"></div>
@@ -132,6 +133,7 @@
 
 <script setup>
 import OsIcon from './OsIcon.vue'
+import AppIcon from './AppIcon.vue'
 import ServerLatencyPanel from './ServerLatencyPanel.vue'
 import { DEFAULT_SERVER_CARD_CONFIG, useServerCardData } from '../composables/useServerCardData'
 
@@ -165,6 +167,8 @@ const {
   trafficUsagePercent,
   trafficLimitPercentText,
   trafficLimitText,
+  totalRxMonthly,
+  totalTxMonthly,
   netInSpeed,
   netOutSpeed,
   totalRx,

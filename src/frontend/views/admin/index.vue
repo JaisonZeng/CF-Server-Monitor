@@ -34,7 +34,7 @@
             <span class="prompt">$</span> {{ trans.sudoStatus }}
           </div>
           <div class="header-actions">
-            <button @click="refreshServers" class="btn" :disabled="adminSiteLoading">↻ {{ trans.refresh }}</button>
+            <button @click="refreshServers" class="btn" :disabled="adminSiteLoading"><AppIcon name="refresh" /> {{ trans.refresh }}</button>
             <select
               v-if="isMultipleMode"
               v-model.number="selectedApiIndex"
@@ -51,7 +51,7 @@
               </option>
             </select>
             <HelpTooltip v-if="isMultipleMode" :text="trans.apiEndpoint" />
-            <button @click="logout" class="btn btn-red">🚪 {{ trans.logout }}</button>
+            <button @click="logout" class="btn btn-red"><AppIcon name="log-out" /> {{ trans.logout }}</button>
           </div>
         </div>
 
@@ -209,12 +209,12 @@
         <div class="modal-dialog">
           <div class="modal-header">
             <div class="modal-title">{{ trans.autoUpdateRiskTitle }}</div>
-            <button class="modal-close" @click="cancelAutoUpdateWarning">✕</button>
+            <button class="modal-close" @click="cancelAutoUpdateWarning"><AppIcon name="x" /></button>
           </div>
 
           <div class="danger-box mb-4">
             <div class="flex-center-gap-sm mb-2">
-              <span class="danger-icon text-xl">⚠️</span>
+              <span class="danger-icon text-xl"><AppIcon name="alert-triangle" /></span>
               <span class="danger-label">{{ trans.autoUpdateRiskTitle }}</span>
             </div>
             <p class="text-secondary text-sm line-height-1-6">
@@ -291,12 +291,12 @@
         <div class="modal-dialog">
           <div class="modal-header">
             <div class="modal-title">$ {{ dbOperation === 'clearHistory' ? 'CLEAR HISTORY' : 'ALTER DATABASE' }}</div>
-            <button class="modal-close" @click="closeDbModal" :disabled="dbLoading">✕</button>
+            <button class="modal-close" @click="closeDbModal" :disabled="dbLoading"><AppIcon name="x" /></button>
           </div>
 
           <div v-if="dbOperation === 'clearHistory'" class="mb-4">
             <div class="flex-center-gap-sm mb-3">
-              <span class="danger-icon text-xl">⚠️</span>
+              <span class="danger-icon text-xl"><AppIcon name="alert-triangle" /></span>
               <span class="danger-label">{{ trans.dangerOperation }}</span>
             </div>
             <p class="text-secondary text-sm line-height-1-6">
@@ -306,7 +306,7 @@
 
           <div v-if="dbOperation === 'upgrade'" class="mb-4">
             <div class="flex-center-gap-sm mb-3">
-              <span class="warning-icon text-xl">ℹ️</span>
+              <span class="warning-icon text-xl"><AppIcon name="info" /></span>
               <span style="color: var(--accent-yellow); font-weight: 600;">{{ trans.upgradeDatabase }}</span>
             </div>
             <p class="text-secondary text-sm line-height-1-6">
@@ -317,7 +317,7 @@
           <div v-if="dbResult" :class="dbResult.success ? 'warning-box' : 'danger-box'" class="mb-4">
             <div class="flex-center-gap-sm">
               <span :style="{ color: dbResult.success ? 'var(--accent-green)' : 'var(--accent-red)', fontWeight: '600' }">
-                {{ dbResult.success ? '✅' : '❌' }} {{ getMessage(dbResult.message) || (dbResult.success ? trans.operationSuccess : trans.operationFailed) }}
+                <AppIcon :name="dbResult.success ? 'circle-check' : 'circle-x'" /> {{ getMessage(dbResult.message) || (dbResult.success ? trans.operationSuccess : trans.operationFailed) }}
               </span>
             </div>
             <div v-if="dbResult.error" class="text-red mt-2">
@@ -343,7 +343,7 @@
         <div class="modal-dialog">
           <div class="modal-header">
             <div class="modal-title">$ D1, Workers & Durable Objects quota --utc</div>
-            <button class="modal-close" @click="d1UsageResult = null">✕</button>
+            <button class="modal-close" @click="d1UsageResult = null"><AppIcon name="x" /></button>
           </div>
 
           <div v-if="d1UsageResult.success" class="mb-4">
@@ -502,12 +502,12 @@
         <div class="modal-dialog">
           <div class="modal-header">
             <div class="modal-title">$ {{ trans.validationError }}</div>
-            <button class="modal-close" @click="validationError = null">✕</button>
+            <button class="modal-close" @click="validationError = null"><AppIcon name="x" /></button>
           </div>
 
           <div class="danger-box mb-4">
             <div class="flex-center-gap-sm">
-              <span class="danger-icon text-xl">⚠️</span>
+              <span class="danger-icon text-xl"><AppIcon name="alert-triangle" /></span>
               <span class="danger-label">{{ validationError }}</span>
             </div>
           </div>
@@ -523,20 +523,20 @@
         <div class="modal-dialog">
           <div class="modal-header">
             <div class="modal-title">$ save --result</div>
-            <button class="modal-close" @click="saveResult = null">✕</button>
+            <button class="modal-close" @click="saveResult = null"><AppIcon name="x" /></button>
           </div>
 
           <div v-if="saveResult.success" class="success-box mb-4">
             <div class="flex-center-gap-sm">
               <span style="color: var(--accent-green); font-weight: 600;">
-                ✅ {{ saveResult.message || trans.saveSuccess }}
+                <AppIcon name="circle-check" /> {{ saveResult.message || trans.saveSuccess }}
               </span>
             </div>
           </div>
 
           <div v-else class="danger-box mb-4">
             <div class="flex-center-gap-sm">
-              <span class="danger-label">❌ {{ saveResult.error }}</span>
+              <span class="danger-label"><AppIcon name="circle-x" /> {{ saveResult.error }}</span>
             </div>
           </div>
 
@@ -551,7 +551,7 @@
         <div class="modal-dialog">
           <div class="modal-header">
             <div class="modal-title">$ alert</div>
-            <button class="modal-close" @click="alertMessage = null">✕</button>
+            <button class="modal-close" @click="alertMessage = null"><AppIcon name="x" /></button>
           </div>
 
           <div class="mb-4">
@@ -577,6 +577,7 @@ import TerminalHeader from '../../components/TerminalHeader.vue'
 import Footer from '../../components/Footer.vue'
 import HelpTooltip from '../../components/HelpTooltip.vue'
 import AdminLogin from './components/AdminLogin.vue'
+import AppIcon from '../../components/AppIcon.vue'
 import ServerTable from './components/ServerTable.vue'
 import SettingsPanel from './components/SettingsPanel.vue'
 import DatabasePanel from './components/DatabasePanel.vue'

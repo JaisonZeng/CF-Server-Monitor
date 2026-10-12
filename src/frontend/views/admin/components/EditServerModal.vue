@@ -3,7 +3,7 @@
     <div class="modal-dialog edit-server-modal">
       <div class="modal-header">
         <div class="modal-title">{{ currentServerName }}</div>
-        <button class="modal-close" @click="$emit('close')">✕</button>
+        <button class="modal-close" @click="$emit('close')"><AppIcon name="x" /></button>
       </div>
       <input type="hidden" v-model="editForm.id">
 
@@ -270,6 +270,7 @@
 <script setup>
 import { computed, watch } from 'vue'
 import HelpTooltip from '../../../components/HelpTooltip.vue'
+import AppIcon from '../../../components/AppIcon.vue'
 import { PING_NODE_FIELDS, validatePingNode } from '../../../utils/pingNode.js'
 import { currentLang } from '../../../utils/i18n.js'
 import { BILLING_CYCLES, CURRENCY_OPTIONS, normalizePrice, renewExpireDateIfNeeded } from '../../../utils/server.js'

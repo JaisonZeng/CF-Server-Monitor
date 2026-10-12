@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-header">
         <div class="modal-title">{{ currentServerName }}</div>
-        <button class="modal-close" @click="$emit('close')">✕</button>
+        <button class="modal-close" @click="$emit('close')"><AppIcon name="x" /></button>
       </div>
 
       <div class="form-row">
@@ -141,7 +141,7 @@
 
       <div class="modal-footer flex-justify-between">
         <div class="flex items-center gap-2">
-          <button @click="$emit('copy-cmd')" class="btn btn-primary">{{ copiedCmd ? '✅ ' + trans.copied : '📋 ' + trans.copy }}</button> <button @click="$emit('open-edit-from-copy')" class="btn btn-blue">✏️ {{ trans.edit }}</button>
+          <button @click="$emit('copy-cmd')" class="btn btn-primary"><AppIcon :name="copiedCmd ? 'circle-check' : 'clipboard'" /> {{ copiedCmd ? trans.copied : trans.copy }}</button> <button @click="$emit('open-edit-from-copy')" class="btn btn-blue"><AppIcon name="pencil" /> {{ trans.edit }}</button>
         </div>
         <button @click="$emit('close')" class="btn">{{ trans.cancel }}</button>
       </div>
@@ -152,6 +152,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import HelpTooltip from '../../../components/HelpTooltip.vue'
+import AppIcon from '../../../components/AppIcon.vue'
 
 const props = defineProps({
   trans: { type: Object, required: true },
