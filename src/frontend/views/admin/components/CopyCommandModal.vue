@@ -132,7 +132,6 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label">{{ trans.installCommand }}</label>
         <div class="cmd-output-wrapper" :class="{ copied: copiedCmd }">
           <span class="cmd-prompt">{{ targetOs === 'windows' ? 'PS' : '$' }}</span>
           <pre class="cmd-output">{{ installCommand }}</pre>
